@@ -52,9 +52,9 @@ Final_Dataset <- Final_Dataset |>
 # Creating Interaction Variables 
 
 Final_Dataset <- Final_Dataset |> 
-  mutate(TempTrigger = mean_session_temp*trigger,
-         TempMale = mean_session_temp*male,
-         TempTriggerMale = mean_session_temp**trigger*male)
+  mutate(TempTrigger = temp*trigger,
+         TempMale = temp*male,
+         TempTriggerMale = temp**trigger*male)
 
 # Recoding "q2_age" into "age" and "q14_socioeconomic_status" into "socio-econ_status"
 
@@ -170,15 +170,6 @@ Kenya_Temp_Variation
 
 
 
-# create subsets of the dataset by country
-
-Final_Dataset <- Final_Dataset |> 
-  mutate(
-    Country = case_when(country_city == "india_delhi" ~ "India",
-                        country_city == "mexico_chapingo" ~ "Mexico",
-                        country_city == "usa_davis" ~ "USA",
-                        country_city == "kenya_nairobi" ~ "Kenya"))
-
 
 
 
@@ -195,7 +186,7 @@ Percent_Altruism_Breakdown <- Final_Dataset |> ggplot(
                      breaks = seq(0, 1, 0.2)) + 
   labs(
     x = "Altruism",
-    y = "Proportion",
+    y = "Percentage",
     title = "Altruism by Country"
   ) +
   theme(legend.position = "none")
@@ -211,7 +202,7 @@ Percent_Altruism_Total <- Final_Dataset |> ggplot(
                      breaks = seq(0, 1, 0.1)) + 
   labs(
     x = "Costly Altruism",
-    y = "Proportion",
+    y = "Percentage",
     title = "Altruism - Entire Sample"
   ) +
   theme(legend.position = "none")
@@ -357,7 +348,7 @@ plot_grid(p_male, p_female, ncol = 2)
 
 Final_Dataset |>
   filter(Gender == "Male") |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism)) +
+  ggplot(aes(x = temp, y = Altruism)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -370,7 +361,7 @@ Final_Dataset |>
 
 Final_Dataset |>
   filter(Gender == "Female") |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism)) +
+  ggplot(aes(x = temp, y = Altruism)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -382,7 +373,7 @@ Final_Dataset |>
   )
 
 Final_Dataset |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism, color = Gender)) +
+  ggplot(aes(x = temp, y = Altruism, color = Gender)) +
   geom_point(aes(shape = Gender), alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -400,7 +391,7 @@ Final_Dataset |>
 
 Final_Dataset |>
   filter(Gender == "Male") |> 
-  ggplot(aes(x = mean_session_temp, y = CostlyAlt)) +
+  ggplot(aes(x = temp, y = CostlyAlt)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -413,7 +404,7 @@ Final_Dataset |>
 
 Final_Dataset |>
   filter(Gender == "Female") |> 
-  ggplot(aes(x = mean_session_temp, y = CostlyAlt)) +
+  ggplot(aes(x = temp, y = CostlyAlt)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -425,7 +416,7 @@ Final_Dataset |>
   )
 
 Final_Dataset |> 
-  ggplot(aes(x = mean_session_temp, y = CostlyAlt, color = Gender)) +
+  ggplot(aes(x = temp, y = CostlyAlt, color = Gender)) +
   geom_point(aes(shape = Gender), alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -445,7 +436,7 @@ Final_Dataset |>
 
 Final_Dataset |>
   filter(Gender == "Male") |> 
-  ggplot(aes(x = mean_session_temp, y = CostlessAlt)) +
+  ggplot(aes(x = temp, y = CostlessAlt)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -458,7 +449,7 @@ Final_Dataset |>
 
 Final_Dataset |>
   filter(Gender == "Female") |> 
-  ggplot(aes(x = mean_session_temp, y = CostlessAlt)) +
+  ggplot(aes(x = temp, y = CostlessAlt)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -470,7 +461,7 @@ Final_Dataset |>
   )
 
 Final_Dataset |> 
-  ggplot(aes(x = mean_session_temp, y = CostlessAlt, color = Gender)) +
+  ggplot(aes(x = temp, y = CostlessAlt, color = Gender)) +
   geom_point(aes(shape = Gender), alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -489,7 +480,7 @@ Final_Dataset |>
 # Altruism-Temp Variation - Combined, Trigger, No Trigger
 
 Final_Dataset |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism, color = Trigger)) +
+  ggplot(aes(x = temp, y = Altruism, color = Trigger)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -502,7 +493,7 @@ Final_Dataset |>
 
 Final_Dataset |> 
   filter(Trigger == "Triggered") |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism, color = Trigger)) +
+  ggplot(aes(x = temp, y = Altruism, color = Trigger)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -515,7 +506,7 @@ Final_Dataset |>
 
 Final_Dataset |> 
   filter(Trigger == "Not Triggered") |> 
-  ggplot(aes(x = mean_session_temp, y = Altruism, color = Trigger)) +
+  ggplot(aes(x = temp, y = Altruism, color = Trigger)) +
   geom_point(alpha = .1) +
   geom_smooth() +
   scale_x_continuous(breaks = seq(19, 35, 1)) + 
@@ -533,7 +524,7 @@ Final_Dataset |>
 
 view(Final_Dataset)
 
-model1 <- lm_robust(Altruism ~ mean_session_temp + IND + USA + KEN + male + trigger + age + socio_econ_status,
+model1 <- lm_robust(Altruism ~ temp + IND + USA + KEN + male + trigger + age + socio_econ_status,
                    se_type = "stata",
                    clusters = site_session,
                    data = Final_Dataset)
@@ -542,21 +533,21 @@ model1
 
 ## Fitting the regression model with specifications including interaction variables
 
-model2 <- lm_robust(Altruism ~ mean_session_temp + IND + USA + KEN + male + trigger + TempTrigger + age + socio_econ_status,
+model2 <- lm_robust(Altruism ~ temp + IND + USA + KEN + male + trigger + TempTrigger + age + socio_econ_status,
                     se_type = "stata",
                     clusters = site_session,
                     data = Final_Dataset)
 
 model2
 
-model3 <- lm_robust(Altruism ~ mean_session_temp +IND + USA + KEN + male + trigger + TempTrigger + TempMale + age + socio_econ_status,
+model3 <- lm_robust(Altruism ~ temp +IND + USA + KEN + male + trigger + TempTrigger + TempMale + age + socio_econ_status,
                     se_type = "stata",
                     clusters = site_session,
                     data = Final_Dataset)
 
 model3
 
-model4 <- lm_robust(Altruism ~ mean_session_temp +IND + USA + KEN + male + trigger + TempTrigger + TempMale + TempTriggerMale + age + socio_econ_status,
+model4 <- lm_robust(Altruism ~ temp +IND + USA + KEN + male + trigger + TempTrigger + TempMale + TempTriggerMale + age + socio_econ_status,
                     se_type = "stata",
                     clusters = site_session,
                     data = Final_Dataset)
