@@ -8,7 +8,7 @@ set more off
 global home_dir "C:\Users\win\Dropbox\Research & Code Example"
 global data_dir "$home_dir\Data"
 
-use "G:\My Drive\School\Thesis\Data\MasterListFinal.dta"
+use "$data_dir\MasterListFinal.dta"
 
 local controls "q2_age q14_socioeconomic_status"
 
