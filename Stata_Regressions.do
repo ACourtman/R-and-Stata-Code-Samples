@@ -5,7 +5,7 @@ set more off
 
 *** Data file included in the repository. Save to your device and set own global home_dir and global data_dir
 
-global home_dir "G:\My Drive\School\Thesis"
+global home_dir "C:\Users\win\Dropbox\Research & Code Example"
 global data_dir "$home_dir\Data"
 
 use "G:\My Drive\School\Thesis\Data\MasterListFinal.dta"
