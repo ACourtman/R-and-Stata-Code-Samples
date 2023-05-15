@@ -1,9 +1,4 @@
 
-
-# Set working directory where data files are location (set your wd to wherever you store the files; files included in repository)
-
-setwd("C:/Users/win/Dropbox/Research & Code Example/Data")
-
 # install and load packages
 
 install.packages("tidyverse")
@@ -25,9 +20,9 @@ library("estimatr")
 
 # Load Datasets
 
-SessionTemp <- read_excel("SessionTemp.xlsx")
+SessionTemp <- read_excel("data/SessionTemp.xlsx")
 
-Final_Dataset <- read_dta("MasterListFinal.dta")
+Final_Dataset <- read_dta("data/MasterListFinal.dta")
 
 # create subsets of the dataset by country
 
